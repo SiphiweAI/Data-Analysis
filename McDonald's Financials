@@ -1,0 +1,35 @@
+import numpy as np             # linear algebra
+import pandas as pd            # data processing
+import matplotlib.pylab as plt          # visualizations that can be fine tuned 
+import seaborn as sns          # visualizations that are more complex
+plt.style.use('ggplot')        # setting the plotting style
+pd.set_option('max_columns', 200)       # because pandas limits the number shown
+
+
+# read/open the dataset using pd (pandas)
+df = pd.read_csv('/kaggle/input/mcdonalds-financial-statements-2002-2022/McDonalds_Financial_Statements.csv')
+    
+
+# To understand the dataset, an overview
+   df.shape           #(rows, columns)   
+   df.head()          # to see number of rows. default is 5 but can adjust
+   df.columns         # to see the list of columns
+   df.dtypes          # to see the object type in each column
+   df.describe ()     # gives us the basic stats (mean, median, etc.) per column
+
+# to prepare the data
+
+# cleaning
+  df.drop(['#specify name of column to drop']. axis=1, inplace=True)                    # removes specified column, axis 0=row 1=column,inplace True=modify same df False=creates new df
+  df = df[['Year', #'Market cap ($B)', 'Revenue ($B)', 'Earnings ($B)', #'P/E ratio',
+       #'P/S ratio', 'P/B ratio', #'Operating Margin (%)', #'EPS ($)',
+       #'Shares Outstanding ($B)', 'Cash on Hand ($B)', #'Dividend Yield (%)',
+       #'Dividend (stock split adjusted) ($)', 'Net assets ($B)',
+       'Total assets ($B)', 'Total debt ($B)', 'Total liabilities ($B)']].copy()         # every column with '#' is removed
+
+# data type conversion
+  df['Earnings ($B)'] = pd.to_numeric(df['Earnings ($B)'])                    # assuming the 'Earnings' column was in any other data type and we want to make it float
+
+
+
+
