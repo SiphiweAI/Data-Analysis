@@ -3,7 +3,7 @@ import pandas as pd            # data processing
 import matplotlib.pylab as plt          # visualizations that can be fine tuned 
 import seaborn as sns          # visualizations that are more complex
 plt.style.use('ggplot')        # setting the plotting style
-pd.set_option('max_columns', 200)       # because pandas limits the number shown
+pd.set_option('display.max_columns', 200)       # because pandas limits the number shown
 
 
 # read/open the dataset using pd (pandas)
@@ -60,7 +60,25 @@ df = pd.read_csv('/kaggle/input/mcdonalds-financial-statements-2002-2022/McDonal
 
 
 
+df['Net_Assets'].value_counts()            # to see the most common value in the column in desc order
+
+# plotting a bar graph
+ax = df['Net_Assets'].value_counts().head(10).plot(kind='bar', title='Top Net Assets')            # plots a bar graph using the va;ue counts limited to 10, ax allows us to edit the axis
+ax.set_xlabel('Net Assets')
+ax.set_ylabel('Count')
+
+
+# plotting a histogram great way to analyze any colum
+ax = df['Net_Assets'].plot(kind='hist', bins=20, title='Top Net Assets')            # plots a histogram using the Net Asset values, the more the bins the more the zoom
+ax.set_xlabel('Net Assets')
+
+# plotting a Kernel Density Estimation not as detailed as hist
+ax = df['Net_Assets'].plot(kind='kde', title='Top Net Assets')            # plots a kde using the Net Asset values
+ax.set_xlabel('Net Assets')
 
 
 
-    
+
+
+
+
