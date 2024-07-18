@@ -93,11 +93,22 @@ ax = sns.scatterplot(x='Total_Debt',
 ax.set_title('Total Debt vs Earnings Over The Years')              
 plt.show()
 
+# pair plot
+sns.pairplot(df.
+            vars= ['Earnings', 'Total_Debt', 'Net Assets', 
+                    'Total_Liabilities', 'Dividend_Yield']        # compares multiple variables
+            hue='Year')
+plt.show
 
 
+# correlation between variables
+df[['Earnings', 'Total_Debt', 'Net Assets', 
+   'Total_Liabilities', 'Dividend_Yield']].dropna().corr()            # will show correlation. The closer to 1 the higher the correlation
 
-
-
+# heatmap
+df_corr = df[['Earnings', 'Total_Debt', 'Net Assets', 
+   'Total_Liabilities', 'Dividend_Yield']].dropna().corr()
+sns.heatmap(df_corr, annot=True)                                      # will show correlation as a heatmap more visual
 
 
 
