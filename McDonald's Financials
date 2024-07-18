@@ -77,6 +77,26 @@ ax = df['Net_Assets'].plot(kind='kde', title='Top Net Assets')            # plot
 ax.set_xlabel('Net Assets')
 
 
+# plotting a dot-plot (scatter plot)                        # to see relationship between two numerical variables
+df.plot(kind='scatter',
+x='Total_Debt',
+y='Earnings',
+title='Total Debt vs Earnings Over The Years')              # each dot is a coordinate of the two variables' values in that row
+plt.show()                                                  # display the plot. it's cleaner
+
+
+# plotting a dot-plot now using seaborn (sns)               # has more features than pd
+ax = sns.scatterplot(x='Total_Debt',
+                    y='Earnings',
+                    hue='Year',
+                    data=df)
+ax.set_title('Total Debt vs Earnings Over The Years')              
+plt.show()
+
+
+
+
+
 
 
 
