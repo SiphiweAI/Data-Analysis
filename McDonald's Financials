@@ -38,7 +38,7 @@ df = pd.read_csv('/kaggle/input/mcdonalds-financial-statements-2002-2022/McDonal
     df['Earnings ($B)'] = pd.to_numeric(df['Earnings ($B)'])                    # assuming the 'Earnings' column was in any other data type and we want to make it float
 
 # renaming
-    df = df.rename(columns={'Revenue ($B)': 'Revenue',                            # rewriting the df as the renamed df
+    df = df.rename(columns={'Revenue ($B)': 'Revenue',                           # rewriting the df as the renamed df
                   'Earnings ($B)':'Earnings',                                    # removing spaces and symbols
                   'Cash on Hand ($B)':'Cash_On_Hand', 
                   'Dividend Yield (%)':'Dividend_Yield',
@@ -109,6 +109,9 @@ df[['Earnings', 'Total_Debt', 'Net Assets',
 df_corr = df[['Earnings', 'Total_Debt', 'Net Assets', 
    'Total_Liabilities', 'Dividend_Yield']].dropna().corr()
 sns.heatmap(df_corr, annot=True)                                      # will show correlation as a heatmap more visual
+
+
+
 
 
 
