@@ -2,5 +2,8 @@ import pandas as pd
 
 
 """cleaning a messy Str df"""
-df[column] = df[column].str.title()                            # to make each word start with Upper case and have lower cases
+df["column"] = df["column"].str.title()                                                             # to make each word start with Upper case and have lower cases
+df["column"] = df["column"].str.replace(".", "", regex=False)                                       # to replace '.' in this case with nothing
+df["new_column1", "new_column2"] = df["column"].str.split(" ", n=1, expand=True)                    # to split Str where there is space, n=1 only the first space, expand makes new comlumns
+
 
