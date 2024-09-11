@@ -1,1 +1,98 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+
+""" global variables"""
+# define global terms so they can be used in any function 
+cost_savings = None
+operational_savings = None
+revenue_loss = None
+transition_cost = None
+
+# Load data from CSV files or Excel spreadsheets
+employee_data = pd.read_csv('doc.csv')
+operational_costs = pd.read_csv('doc2.csv')
+revenue_data = pd.read_csv('doc3.csv')
+transition_costs = pd.read_csv('doc4.csv')
+customer_data = pd.read_csv('doc5.csv')
+
+""" calculations """
+
+# Employee Cost Savings
+def calculate_employee_cost_savings(df):
+    df['Total Cost'] = df['Salary'] + df['Benefits']                
+    total_savings = df['Total Cost'].sum()
+    return total_savings
+
+# Operational Cost Savings
+def calculate_operational_cost_savings(current_costs, reduced_costs):
+    savings = current_costs['Cost'].sum() - reduced_costs['Cost'].sum()
+    return savings
+
+# Revenue Impact
+def calculate_revenue_impact(df):
+    df['Revenue Loss'] = df['Average Revenue'] * df['Number of Transactions Lost']
+    total_revenue_loss = df['Revenue Loss'].sum()
+    return total_revenue_loss
+
+# Transition Costs
+def calculate_transition_costs(df):
+    total_cost = df['Amount'].sum()
+    return total_cost
+
+# ROI Calculation
+def calculate_roi(cost_savings, revenue_loss, transition_costs):
+    net_gain = cost_savings - revenue_loss - transition_costs
+    roi = (net_gain / transition_costs) * 100
+    return roi
+
+
+""" Summary report """
+
+# functions to generate a summary report
+def generate_summary_report(employee_data, operational_costs, revenue_data, transition_costs):
+    cost_savings = calculate_employee_cost_savings(employee_data)
+    operational_savings = calculate_operational_cost_savings(operational_costs, operational_costs)  # Use reduced costs if available
+    revenue_loss = calculate_revenue_impact(revenue_data)
+    transition_cost = calculate_transition_costs(transition_costs)
+    roi = calculate_roi(cost_savings, revenue_loss, transition_cost)
+
+    print(f"Total Employee Cost Savings: ${cost_savings:.2f}")
+    print(f"Operational Cost Savings: ${operational_savings:.2f}")
+    print(f"Revenue Loss: ${revenue_loss:.2f}")
+    print(f"Total Transition Costs: ${transition_cost:.2f}")
+    print(f"ROI: {roi:.2f}%")
+
+    # Visualization (optional)
+    data = {
+        'Cost Type': ['Employee Cost Savings', 'Operational Cost Savings', 'Revenue Loss', 'Transition Costs'],
+        'Amount': [cost_savings, operational_savings, revenue_loss, transition_cost]
+    }
+    df = pd.DataFrame(data)
+    sns.barplot(x='Cost Type', y='Amount', data=df)
+    plt.xticks(rotation=45)
+    plt.title('Financial Impact Analysis')
+    plt.show()
+
+
+if __name__ == "__main__":
+    generate_summary_report(employee_data, operational_costs, revenue_data, transition_costs)
+
+
+""" save to excel """
+with pd.ExcelWriter('financial_analysis_report.xlsx', engine='xlsxwriter') as writer:
+    employee_data.to_excel(writer, sheet_name='Employee Data', index=False)
+    operational_costs.to_excel(writer, sheet_name='Operational Costs', index=False)
+    revenue_data.to_excel(writer, sheet_name='Revenue Data', index=False)
+    transition_costs.to_excel(writer, sheet_name='Transition Costs', index=False)
+
+    # Save summary results to another sheet
+    summary_df = pd.DataFrame({
+        'Cost Type': ['Employee Cost Savings', 'Operational Cost Savings', 'Revenue Loss', 'Transition Costs'],
+        'Amount': [cost_savings, operational_savings, revenue_loss, transition_cost]
+    })
+    summary_df.to_excel(writer, sheet_name='Summary Report', index=False)
+
 
