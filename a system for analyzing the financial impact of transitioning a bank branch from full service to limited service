@@ -3,20 +3,23 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-
-""" global variables"""
-# define global terms so they can be used in any function 
+# global terms that can be used in any function 
 cost_savings = None
 operational_savings = None
 revenue_loss = None
 transition_cost = None
 
-# Load data from CSV files or Excel spreadsheets
-employee_data = pd.read_csv('doc.csv')
-operational_costs = pd.read_csv('doc2.csv')
-revenue_data = pd.read_csv('doc3.csv')
-transition_costs = pd.read_csv('doc4.csv')
-customer_data = pd.read_csv('doc5.csv')
+# loading files
+file = r"C:\Users\Siphiwe\Desktop\Sheets\customers.csv"
+file1 = r"C:\Users\Siphiwe\Desktop\Sheets\employees.csv"
+file2 = r"C:\Users\Siphiwe\Desktop\Sheets\costs2024.xlsx"
+file3 = r"C:\Users\Siphiwe\Desktop\Sheets\revenue2024.xlsx"
+file4 = r"C:\Users\Siphiwe\Desktop\Sheets\transitions2024.xlsx"
+employee_data = pd.read_csv(file1)
+operational_costs = pd.read_excel(file2)
+revenue_data = pd.read_excel(file3)
+transition_costs = pd.read_excel(file4)
+customer_data = pd.read_csv(file)
 
 """ calculations """
 
